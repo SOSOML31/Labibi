@@ -1,13 +1,15 @@
 from PIL import Image
 import random
 
+
+
+
 # =======================
 # Affichage du labyrinthe
-# =======================
+
 def print_maze(lab, in_out=None):
     """
-    Affiche le labyrinthe dans la console.
-    'i' = entrée, 'o' = sortie, '█' = mur, '░' = passage libre.
+    Affiche le labyrinthe dans la console avec l'entrée ('i') et la sortie ('o').
     """
     for i, row in enumerate(lab):
         line = ""
@@ -20,9 +22,10 @@ def print_maze(lab, in_out=None):
                 line += "░" if cell == 0 else "█"
         print(line)
 
+
+
 # =======================
 # Génération d'un labyrinthe avec Prim
-# =======================
 def generate_prim(w, h):
     """
     Génère un labyrinthe en utilisant l'algorithme de Prim.
@@ -42,9 +45,11 @@ def generate_prim(w, h):
 
     return maze
 
+
+
 # =======================
 # Vérification d'un chemin entre l'entrée et la sortie
-# =======================
+
 def has_path(maze, start, end):
     """
     Vérifie s'il existe un chemin entre l'entrée et la sortie avec DFS.
@@ -68,17 +73,28 @@ def has_path(maze, start, end):
 
 # =======================
 # Générer un labyrinthe avec un chemin relié
-# =======================
+
+
 def generate_maze_with_path(w, h):
     """
-    Génère un labyrinthe avec un chemin garanti entre l'entrée et la sortie.
+    Génère un labyrinthe avec un chemin garanti entre l'entrée et la sortie sur les bords.
     """
     while True:
         maze = generate_prim(w, h)
-        free_cells = [(i, j) for i in range(h) for j in range(w) if maze[i][j] == 0]
-        start, end = random.sample(free_cells, 2)
-        if has_path(maze, start, end):
-            return maze, (start, end)
+        
+        # Choisir des points d'entrée et de sortie sur les bords
+        free_cells = [(0, j) for j in range(w) if maze[0][j] == 0] + \
+                     [(h-1, j) for j in range(w) if maze[h-1][j] == 0] + \
+                     [(i, 0) for i in range(h) if maze[i][0] == 0] + \
+                     [(i, w-1) for i in range(h) if maze[i][w-1] == 0]
+        
+        if len(free_cells) >= 2:
+            start, end = random.sample(free_cells, 2)
+            if has_path(maze, start, end):
+                return maze, (start, end)
+
+
+
 
 # =======================
 # Génération d'une image PNG
@@ -100,12 +116,14 @@ def fancy_maze(bin_lab_2d, name, in_out=None):
                 pixels[j, i] = (255, 255, 255) if bin_lab_2d[i][j] == 0 else (0, 0, 0)
     img.save(f"{name}.png")
 
+
+
 # =======================
 # Test complet
 # =======================
 def test_maze_with_path():
     """
-    Test pour générer un labyrinthe avec un chemin entre l'entrée et la sortie.
+    Test pour générer un labyrinthe avec un chemin entre l'entrée et la sortie sur les bords.
     """
     w, h = 20, 20  # Taille du labyrinthe
     maze, in_out = generate_maze_with_path(w, h)
