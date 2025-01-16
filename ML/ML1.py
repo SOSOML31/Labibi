@@ -143,9 +143,10 @@ print("Entraînement terminé.")
 # Prédiction avec le modèle
 # =======================
 def predict_path(model, maze):
-    maze_flat = np.array(maze).flatten()
+    maze_np = np.array(maze)  # Conversion en tableau NumPy
+    maze_flat = maze_np.flatten()  # Aplatir le labyrinthe
     maze_tensor = torch.tensor(maze_flat, dtype=torch.float32).unsqueeze(0)
-    output = model(maze_tensor).detach().numpy().reshape(maze.shape)
+    output = model(maze_tensor).detach().numpy().reshape(maze_np.shape)  # Utiliser maze_np.shape
     predicted_path = np.where(output > 0.5, 1, 0)
     return predicted_path
 
