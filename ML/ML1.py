@@ -175,7 +175,7 @@ def generate_maze_image(maze, path=None, filename="maze.png"):
     img.save(filename)
     print(f"Image du labyrinthe sauvegardée sous '{filename}'.")
 
-# Générer une image du labyrinthe avec le chemin prédit
+
 test_maze = dataset[0][0]
 predicted_path = predict_path(model, test_maze)
 path_coordinates = [(i, j) for i in range(len(predicted_path)) for j in range(len(predicted_path[0])) if predicted_path[i][j] == 1]

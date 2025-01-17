@@ -1,9 +1,8 @@
 from PIL import Image
 import random
 
-# =======================
 # Conversion binary_map → graph_map
-# =======================
+
 def bin_to_graph(binary_map, w):
     """
     Convertit une carte binaire en représentation graphe.
@@ -15,8 +14,8 @@ def bin_to_graph(binary_map, w):
     for i in range(h):
         row = []
         for j in range(w):
-            cell = [1, 1, 1, 1]  # Initialisation des murs
-            if binary_map[i * w + j] == 0:  # Case libre
+            cell = [1, 1, 1, 1]  
+            if binary_map[i * w + j] == 0:  #  libre
                 if i > 0 and binary_map[(i - 1) * w + j] == 0:  # Mur haut
                     cell[0] = 0
                 if j < w - 1 and binary_map[i * w + (j + 1)] == 0:  # Mur droite
@@ -29,9 +28,8 @@ def bin_to_graph(binary_map, w):
         graph_map.append(row)
     return graph_map
 
-# =======================
 # Conversion graph_map → binary_map
-# =======================
+
 def graph_to_bin(graph_map):
     """
     Convertit une carte graphe en carte binaire.
@@ -43,27 +41,27 @@ def graph_to_bin(graph_map):
             binary_map.append(0 if sum(cell) < 4 else 1)
     return binary_map
 
-# =======================
+
 # Conversion flat → 2D
-# =======================
+
 def flat_to_2d(flat_lab, w):
     """
     Transforme un labyrinthe plat (liste 1D) en format 2D (liste de listes).
     """
     return [flat_lab[i:i + w] for i in range(0, len(flat_lab), w)]
 
-# =======================
+
 # Conversion 2D → plat
-# =======================
+
 def flat_it(lab_2d):
     """
     Transforme un labyrinthe en 2D (liste de listes) en format plat (liste 1D).
     """
     return [cell for row in lab_2d for cell in row]
 
-# =======================
+
 # Affichage du labyrinthe
-# =======================
+
 def print_maze(lab, in_out=None, path=None):
     """
     Affiche le labyrinthe dans la console.
@@ -84,9 +82,9 @@ def print_maze(lab, in_out=None, path=None):
                 line += "░" if cell == 0 else "█"
         print(line)
 
-# =======================
+
 # Génération d'un labyrinthe avec Prim
-# =======================
+
 def generate_prim(w, h):
     """
     Génère un labyrinthe en utilisant l'algorithme de Prim.

@@ -3,9 +3,9 @@ import pickle
 import torch
 from PIL import Image
 
-# =======================
+
 # Charger le modèle pré-entraîné
-# =======================
+
 class MazeSolverNet(torch.nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(MazeSolverNet, self).__init__()
@@ -30,6 +30,10 @@ model = MazeSolverNet(input_size, hidden_size, output_size)
 
 
 
+
+
+
+
 # Charger les poids du modèle à partir d'un fichier
 
 model.load_state_dict(  # `load_state_dict` est une méthode de PyTorch pour charger les paramètres appris (poids) dans le modèle.
@@ -49,6 +53,11 @@ model.eval()  # `eval()` est une méthode de PyTorch qui change le mode du modè
 # En mode évaluation, le modèle est prêt à effectuer des prédictions.
 
 print("Modèle pré-entraîné chargé avec succès.")  # `print` est une fonction Python qui affiche du texte dans la console.
+
+
+
+
+
 
 
 

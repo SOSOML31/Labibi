@@ -2,14 +2,10 @@ from PIL import Image
 import random
 import heapq
 
-# =======================
+
 # Affichage du labyrinthe
-# =======================
+
 def print_maze(lab, in_out=None, path=None):
-    """
-    Affiche le labyrinthe dans la console.
-    'i' = entrée, 'o' = sortie, '█' = mur, '░' = passage libre, '.' = chemin.
-    """
     for i, row in enumerate(lab):
         line = ""
         for j, cell in enumerate(row):
@@ -23,13 +19,11 @@ def print_maze(lab, in_out=None, path=None):
                 line += "░" if cell == 0 else "█"
         print(line)
 
-# =======================
+
 # Génération d'un labyrinthe avec Prim
 # =======================
 def generate_prim(w, h):
-    """
-    Génère un labyrinthe en utilisant l'algorithme de Prim.
-    """
+
     maze = [[1] * w for _ in range(h)]  # Initialisation avec des murs partout
     start_x, start_y = random.randint(0, h - 1), random.randint(0, w - 1)
     maze[start_x][start_y] = 0  # Point de départ
@@ -45,9 +39,10 @@ def generate_prim(w, h):
 
     return maze
 
-# =======================
+
+# =======================================================================================
 # A* Algorithm
-# =======================
+# /////////////////////////
 def a_star(maze, start, end):
     """
     Implémente l'algorithme A* pour trouver le chemin le plus court.
@@ -81,13 +76,28 @@ def a_star(maze, start, end):
                     heapq.heappush(open_set, (f_score[neighbor], neighbor))
     return []
 
-# =======================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+# =======================================================================================
+
+
+
+
 # Dijkstra Algorithm
 # =======================
 def dijkstra(maze, start, end):
-    """
-    Implémente l'algorithme de Dijkstra pour trouver le chemin le plus court.
-    """
     h, w = len(maze), len(maze[0])
     open_set = []
     heapq.heappush(open_set, (0, start))
@@ -119,9 +129,6 @@ def dijkstra(maze, start, end):
 # Comparaison entre A* et Dijkstra
 # =======================
 def compare_algorithms(maze, start, end):
-    """
-    Compare les chemins trouvés par A* et Dijkstra.
-    """
     path_a_star = a_star(maze, start, end)
     path_dijkstra = dijkstra(maze, start, end)
 
@@ -137,7 +144,7 @@ def compare_algorithms(maze, start, end):
 # =======================
 def fancy_maze(bin_lab_2d, name, in_out=None, path=None):
     """
-    Génère une image PNG du labyrinthe avec l'entrée (vert), la sortie (rouge), et le chemin (bleu).
+    Génère une image PNG du labyrinthe avec des couleur
     """
     h, w = len(bin_lab_2d), len(bin_lab_2d[0])
     img = Image.new("RGB", (w, h), "black")
@@ -154,9 +161,9 @@ def fancy_maze(bin_lab_2d, name, in_out=None, path=None):
                 pixels[j, i] = (255, 255, 255) if bin_lab_2d[i][j] == 0 else (0, 0, 0)
     img.save(f"{name}.png")
 
-# =======================
+
 # Test complet
-# =======================
+
 def test_maze_with_path():
     """
     Test pour générer un labyrinthe et comparer les chemins avec A* et Dijkstra.
@@ -164,19 +171,15 @@ def test_maze_with_path():
     w, h = 20, 20
     maze = generate_prim(w, h)
     
-    # Choisir l'entrée et la sortie
     free_cells = [(i, j) for i in range(h) for j in range(w) if maze[i][j] == 0]
     start, end = random.sample(free_cells, 2)
     
-    # Trouver le chemin avec A*
     path_a_star = a_star(maze, start, end)
     print("\nLabyrinthe avec chemin A* :")
     print_maze(maze, (start, end), path_a_star)
-    fancy_maze(maze, "maze_with_a_star", (start, end), path_a_star)
+    fancy_maze(maze, "labirinte+suivichemin", (start, end), path_a_star)
     
-    # Comparer avec Dijkstra
     compare_algorithms(maze, start, end)
 
-# Lancer le test
 if __name__ == "__main__":
     test_maze_with_path()

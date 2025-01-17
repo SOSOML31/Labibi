@@ -4,8 +4,7 @@ import random
 
 
 
-# =======================
-# Affichage du labyrinthe
+
 
 def print_maze(lab, in_out=None):
     """
@@ -24,8 +23,7 @@ def print_maze(lab, in_out=None):
 
 
 
-# =======================
-# Génération d'un labyrinthe avec Prim
+
 def generate_prim(w, h):
     """
     Génère un labyrinthe en utilisant l'algorithme de Prim.
@@ -47,8 +45,6 @@ def generate_prim(w, h):
 
 
 
-# =======================
-# Vérification d'un chemin entre l'entrée et la sortie
 
 def has_path(maze, start, end):
     """
@@ -71,9 +67,6 @@ def has_path(maze, start, end):
                 stack.append((nx, ny))
     return False
 
-# =======================
-# Générer un labyrinthe avec un chemin relié
-
 
 def generate_maze_with_path(w, h):
     """
@@ -95,10 +88,6 @@ def generate_maze_with_path(w, h):
 
 
 
-
-# =======================
-# Génération d'une image PNG
-# =======================
 def fancy_maze(bin_lab_2d, name, in_out=None):
     """
     Génère une image PNG du labyrinthe avec entrée (vert) et sortie (rouge).
@@ -118,9 +107,7 @@ def fancy_maze(bin_lab_2d, name, in_out=None):
 
 
 
-# =======================
-# Test complet
-# =======================
+
 def test_maze_with_path():
     """
     Test pour générer un labyrinthe avec un chemin entre l'entrée et la sortie sur les bords.
@@ -132,6 +119,6 @@ def test_maze_with_path():
     fancy_maze(maze, "maze_with_path", in_out)
     print(f"\nImage sauvegardée sous 'maze_with_path.png'.\nEntrée : {in_out[0]}, Sortie : {in_out[1]}")
 
-# Lancer le test
+
 if __name__ == "__main__":
     test_maze_with_path()
